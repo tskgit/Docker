@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.8
+    container_name: mysql_db
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_conf:/etc/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=dbpwd
+      - MYSQL_DATABASE=phpdb
+      - MYSQL_USER=phpdb
+      - MYSQL_PASSWORD=phpdbpwd
+  pma:
+    image: phpmyadmin
+    container_name: php_myadmin
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 80:80
+volumes:
+  mysql_data:
+  mysql_conf:
+
